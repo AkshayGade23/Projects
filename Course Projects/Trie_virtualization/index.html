@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trie Visualization</title>
+<style>
+    /* CSS styles */
+    #trie-container {
+        width: 600px;
+        margin: 0 auto;
+    }
+    #trie-visualization-container {
+        width: 100%;
+        height: auto; 
+        overflow: auto; 
+        border: 1px solid #ccc;
+        margin-bottom: 4px;
+    }
+    #trie-visualization {
+        height: auto;
+    }
+    #word-input {
+        width: 300px;
+        padding: 5px;
+        margin-right: 10px;
+    }
+    button {
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+    #status {
+        margin-top: 10px;
+        font-style: italic;
+    }
+</style>
+</head>
+<body>
+<div id="trie-container">
+    <input type="text" id="word-input" placeholder="Enter word">
+    <button onclick="insertWord()">Insert</button>
+    <button onclick="searchWord()">Search</button>
+    <button onclick="deleteWord()">Delete</button>
+    <div id="status"></div>
+    <div id="trie-visualization-container">
+        <svg id="trie-visualization"></svg>
+    </div>
+</div>
+<script src="./trie.js"></script>
+</body>
+</html>

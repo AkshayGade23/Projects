@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trie Visualization</title>
+    <style>
+        #trie {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .node {
+            display: flex;
+        }
+        .char {
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="trie">
+    <div id="root" class="node"></div>
+</div>
+
+<script>
+    // Trie Data Structure
+    class TrieNode {
+        constructor() {
+            this.children = {};
+            this.isEndOfWord = false;
+        }
+    }
+
+    class Trie {
+        constructor() {
+            this.root = new TrieNode();
+        }
+
+        insert(word) {
+            let node = this.root;
+            for (let char of word) {
+                if (!node.children[char]) {
+                    node.children[char] = new TrieNode();
+                }
+                node = node.children[char];
+            }
+            node.isEndOfWord = true;
+        }
+
+        search(word) {
+            let node = this.root;
+            for (let char of word) {
+                if (!node.children[char]) {
+                    return false;
+                }
+                node = node.children[char];
+            }
+            return node.isEndOfWord;
+        }
+    }
+
+    // Trie Visualization
+    const trie = new Trie();
+    const trieDiv = document.getElementById('trie');
+
+    function visualizeTrie() {
+        trieDiv.innerHTML = ''; // Clear the previous visualization
+        visualizeNode(trie.root, document.getElementById('root'));
+    }
+
+    function visualizeNode(node, parentNodeDiv) {
+        const nodeDiv = document.createElement('div');
+        nodeDiv.classList.add('node');
+
+        for (let char in node.children) {
+            const charDiv = document.createElement('div');
+            charDiv.classList.add('char');
+            charDiv.textContent = char;
+            nodeDiv.appendChild(charDiv);
+
+            visualizeNode(node.children[char], nodeDiv);
+        }
+
+        if (node.isEndOfWord) {
+            const endDiv = document.createElement('div');
+            endDiv.textContent = '✅';
+            nodeDiv.appendChild(endDiv);
+        }
+
+        parentNodeDiv.appendChild(nodeDiv);
+    }
+
+    // Example: Insert words and visualize
+    trie.insert("apple");
+    trie.insert("app");
+    trie.insert("banana");
+    trie.insert("bat");
+
+    visualizeTrie();
+</script>
+
+</body>
+</html>
